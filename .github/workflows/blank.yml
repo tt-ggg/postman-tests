@@ -1,0 +1,35 @@
+# Этот рабочий процесс поможет вам запустить новый тест с помощью Newman CLI
+name: Автоматизированные API-тесты с использованием Newman CLI
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test-api:
+    runs-on: ubuntu-latest
+    steps:
+      # Проверяет ваш репозиторий под $GITHUB_WORKSPACE, чтобы ваша задача могла к нему обращаться
+      - uses: actions/checkout@v3
+      - name: Создать каталог
+        run: |
+          mkdir TestArtifact
+      # Установить Node на запускающем устройстве
+      - name: Установить Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      # Установить Newman глобально, репортер для Slack и установить дополнительный HTML-репортер
+      - name: Установить Newman
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-slackreporter
+          npm install -g newman-reporter-htmlextra
+      # Запустить коллекцию POSTMAN
+      - name: Запустить тесты
+        run: newman run "User Details.postman_collection.json" -e "Dev Env. postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export testArtifacts/htmlreport.html
+      # Загрузить отчеты в каталог TestArtifacts
+      - name: Вывести результаты
+        uses: actions/upload-artifact@v3
+        with:
+          name: Reports
+          path: testArtifacts
