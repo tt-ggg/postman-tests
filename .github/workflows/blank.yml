@@ -1,9 +1,7 @@
 # Этот рабочий процесс поможет вам запустить новый тест с помощью Newman CLI
 name: Автоматизированные API-тесты с использованием Newman CLI
-on:
-  push:
-    branches:
-      - main
+on: 
+  workflow_dispatch:
 jobs:
   test-api:
     runs-on: ubuntu-latest
