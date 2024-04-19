@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "99c56c73-370e-4992-895f-8b0dd81d34c3",
+		"name": "newman-runner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27285447",
+		"_collection_link": "https://cloudy-capsule-946739.postman.co/workspace/qa~34601055-8d04-427c-9e34-1017680fd0be/collection/27285447-99c56c73-370e-4992-895f-8b0dd81d34c3?action=share&source=collection_link&creator=27285447"
+	},
+	"item": [
+		{
+			"name": "first",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()",
+							"",
+							"var shema = {",
+							"    type:\"object\"",
+							"}",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"",
+							"    // Проверка второго теста только при успешном выполнении первого теста",
+							"    if (pm.response.code === 200) {",
+							"        pm.test(\"JSON schema\", function(){",
+							"            pm.expect(tv4.validate(data, shema)).to.be.true;",
+							"        });",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-language",
+						"value": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+					},
+					{
+						"key": "content-type",
+						"value": "text/plain;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "_cc_id=ca8acf84420d6e47b683b6e4fadeb516; _cc_dc=2"
+					},
+					{
+						"key": "origin",
+						"value": "https://demoqa.com"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://demoqa.com/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\", \"Not-A.Brand\";v=\"99\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "cross-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"r\":{\"rid\":true},\"m\":{\"dcc\":16589,\"src\":\"SYNCJS\",\"ch\":{\"brands\":[{\"brand\":\"Chromium\",\"version\":\"124\"},{\"brand\":\"Google Chrome\",\"version\":\"124\"},{\"brand\":\"Not-A.Brand\",\"version\":\"99\"}],\"fullVersionList\":[{\"brand\":\"Chromium\",\"version\":\"124.0.6367.61\"},{\"brand\":\"Google Chrome\",\"version\":\"124.0.6367.61\"},{\"brand\":\"Not-A.Brand\",\"version\":\"99.0.0.0\"}],\"mobile\":false,\"model\":\"\",\"platform\":\"macOS\",\"platformVersion\":\"14.3.0\"}},\"d\":{},\"c\":[{\"k\":\"_cc_id\",\"v\":\"ca8acf84420d6e47b683b6e4fadeb516\"}]}"
+				},
+				"url": {
+					"raw": "{{url}}/6/map",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"6",
+						"map"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
